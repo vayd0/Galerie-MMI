@@ -1,4 +1,8 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+@import "@fortawesome/fontawesome-free/css/all.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
@@ -6,6 +10,21 @@
 @source '../**/*.js';
 
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+    --color-darkblue: rgba(0, 32, 48, 1);
+    --color-blue: rgba(18, 103, 138, 1);
+    --color-turq-blue: rgba(153, 234, 162, 1);
+    --color-lime: rgba(153, 234, 162, 1);
+    --color-light-lime: rgba(217, 252, 186, 1);
+}
+
+.invertedAlbum {
+	-webkit-mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20140%20100%22%3E%3Cpath%20d%3D%22M10%2C0H130A10%2C10%200%2C0%2C1%20140%2C10V67A8%2C8%200%2C0%2C1%20132%2C75H123A8%2C8%200%2C0%2C0%20115%2C83V92A8%2C8%200%2C0%2C1%20107%2C100H10A10%2C10%200%2C0%2C1%200%2C90V10A10%2C10%200%2C0%2C1%2010%2C0Z%22%20fill%3D%22%23fff%22%20%2F%3E%3C%2Fsvg%3E') no-repeat center / contain;
+    	mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20140%20100%22%3E%3Cpath%20d%3D%22M10%2C0H130A10%2C10%200%2C0%2C1%20140%2C10V67A8%2C8%200%2C0%2C1%20132%2C75H123A8%2C8%200%2C0%2C0%20115%2C83V92A8%2C8%200%2C0%2C1%20107%2C100H10A10%2C10%200%2C0%2C1%200%2C90V10A10%2C10%200%2C0%2C1%2010%2C0Z%22%20fill%3D%22%23fff%22%20%2F%3E%3C%2Fsvg%3E') no-repeat center / contain;
+	background-color: #d9fcba;
+	aspect-ratio: 7 / 5;
+    width: 200px;
+    height:100px;
 }
