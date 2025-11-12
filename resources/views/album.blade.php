@@ -1,13 +1,11 @@
 @extends("templates.app")
 
 @section('content')
-    {{ print_r($albums) }}
     @foreach ($albums as $album)
         <h1>{{ $album->titre }}</h1>
-        {{ print_r($album->cover) }}
         <a href="/album/{{ $album->id }}">
-            <div class="album overflow-visible width-[250px]">
-                <div class="invertedAlbum width-full relative overflow-visible" data-tooltip-target="tooltip-{{ $album->id }}"
+            <div class="album overflow-visible">
+                <div class="invertedAlbum relative overflow-visible" data-tooltip-target="tooltip-{{ $album->id }}"
                     data-tooltip-placement="top" style="background: url({{ $album->cover->url }});">
                 </div>
                 <button
