@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+        <script
+            src="https://kit.fontawesome.com/15198d5ddf.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <header class="header fixed top-0 left-0 h-[4rem] pl-[7rem] w-full bg-white">
+            <div class="flex items-center justify-between gap-5 h-full">
+                <nav class="w-[25%] flex items-center">
+                    <ul class="flex gap-5 list-none m-0 p-0">
+                        <li class="nav-item underline">Photos</li>
+                        <li class="nav-item">Albums</li>
+                    </ul>
+                </nav>
+
+                <div class="w-[100%] px-5">
+                    <form class="w-full" role="search" aria-label="Site search">
+                        <div class="flex">
+                            <div class="relative w-full">
+                                <input
+                                    type="search"
+                                    id="search-dropdown"
+                                    class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-l-lg rounded-r-none border border-gray-300 focus:ring-blue-500 focus:border-blue-500"
+                                    placeholder="Rechercher..."
+                                    required
+                                />
+                                <button
+                                    type="submit"
+                                    class="absolute top-0 right-0 p-2.5 text-sm font-medium h-full text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300"
+                                    aria-label="Search"
+                                >
+                                    <svg
+                                        class="w-4 h-4"
+                                        aria-hidden="true"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        fill="none"
+                                        viewBox="0 0 20 20"
+                                    >
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-width="2"
+                                            d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
+                                        />
+                                    </svg>
+                                    <span class="sr-only">Rechercher</span>
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </header>
+        <nav
+            class="sidebar fixed w-[5rem] h-[100vh] bg-white p-4 text-zinc-900 flex flex-col rounded-r-2xl shadow-2xl"
+        >
+        >
+            <img class="mb-4" src="/public/assets/logo.svg" alt="Logo" />
+
+            <ul class="grid grid-cols-1 text-[1.4rem] gap-3 text-center">
+                <li class="nav-item">
+                    <a href="/"><i class="fa-solid fa-house"></i></a>
+                </li>
+                <li class="nav-item">
+                    <button><i class="fa-solid fa-folder-plus"></i></button>
+                </li>
+                <li class="nav-item">
+                    <button><i class="fa-solid fa-user"></i></button>
+                </li>
+            </ul>
+
+            <div class="flex-1"></div>
+
+            <div class="nav-item text-[1.4rem] text-center">
+                <i class="fa-solid fa-gear"></i>
+            </div>
+        </nav>
+    </body>
+</html>
