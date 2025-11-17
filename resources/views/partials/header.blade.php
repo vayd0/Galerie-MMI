@@ -1,4 +1,4 @@
-<nav class="flex justify-end items-center p-5 bg-white">
+<nav class="flex justify-end items-center p-5">
   <label class="inline-flex cursor-pointer items-center">
     <input type="checkbox" class="peer sr-only" />
     <div class="relative flex h-8 items-center gap-4 rounded-full bg-darkblue px-1 overflow-hidden text-sm text-white">

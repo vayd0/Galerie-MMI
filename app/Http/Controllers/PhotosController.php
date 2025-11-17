@@ -4,11 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Models\Album;
 class PhotosController extends Controller
 {
     public function getPhotos($id) 
     {
-        $photos = DB::select("SELECT * FROM Photos WHERE album_id = ?", [$id]);
-        return view('photos', ['photos' => $photos]);
+        $album = Album::findOrFail($id);
+        return view('photos', ['photos' => $album -> photos]);
     }
 }

@@ -1,22 +1,42 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use App\Models\Album;
 
 class AlbumController extends Controller
 {
-    public function getAlbum() 
+    public function getAlbum()
     {
-        $albums = DB::select("SELECT * FROM Albums");
+        $albums = Album::all();
+        $noCover = "https://discourse.gohugo.io/t/image-is-not-shown-or-broken-on-webpage/22584";
+
         foreach ($albums as $album) {
             $cover = DB::select(
-            "SELECT id, url FROM Photos WHERE album_id = ? ORDER BY id ASC LIMIT 1",
-            [$album->id]
+                "SELECT url FROM Photos WHERE album_id = ? ORDER BY id ASC LIMIT 1",
+                [$album->id]
             );
-            $album->cover = $cover[0];
+            $album->cover = isset($cover[0]) ? $cover[0]->url : $noCover;
         }
         return view('album', ['albums' => $albums]);
+    }
+
+    public function seeAddTemp()
+    {
+        return view('ajoutAlbum');
+    }
+
+    public function addAlbum(Request $request)
+    {
+        $validate = $request->validate([
+            "titre" => "required|string|max:30"
+        ]);
+
+        $validate['creation'] = now()->format('Y-m-d H:i:s');
+
+        Album::create($validate);
+
+        return redirect('/albums')->with('success', 'Album créé avec succès !');
     }
 }

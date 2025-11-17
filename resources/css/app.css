@@ -20,28 +20,12 @@
     --color-lime: rgba(153, 234, 162, 1);
     --color-light-lime: rgba(217, 252, 186, 1);
 }
+
 html,
 body {
-    margin: 0;
-    min-height: 100vh;
-    /* allow vertical scrolling but prevent horizontal overflow */
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    /* fallback color then background image with a subtle overlay for contrast */
-    background-color: var(--color-basic, #ffffff);
-    background-image: linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12)),
-        url("../../public/assets/background.jpg");
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: cover;
-
-    /* avoid fixed attachment on small devices for performance */
-    background-attachment: scroll;
-
-    /* improve font rendering */
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    background-color: var(--color-basic);
+    height: 100vh;
+    width: 100vw;
 }
 
 .invertedAlbum {
@@ -51,10 +35,59 @@ body {
         no-repeat center / contain;
     background-color: #d9fcba;
     aspect-ratio: 7 / 5;
-    width: 20rem;
-    height: 15rem;
+    width: 15rem;
+    height: 11rem;
 }
 
 #album:hover #arrow {
-    transform: rotate(360deg);
+    transform: rotate(360deg)
+    scale(1.25);
+}
+
+#grid-img {
+    border: 0px var(--color-blue) solid;
+}
+
+#grid-img:hover {
+    border:0.2rem var(--color-blue) solid;
+    transform: scale(1.05) rotate(2deg);
+    cursor:pointer;
+    border-radius:1.5rem;
+}
+
+#add-photo:hover, #add-album:hover {
+    transform: scale(1.05) rotate(2deg);
+    cursor:pointer;
+    border-radius:1.5rem;
+}
+
+#add-photo i, #add-album i {
+    font-size:2rem;
+    transition: all 0.2s ease-in-out;
+}
+
+#add-photo:hover i, #add-album:hover i {
+    font-size:3rem;
+}
+
+.gelatine {
+  animation: gelatine 0.5s infinite;
+}
+
+@keyframes gelatine {
+    0%, 100% {
+        transform: scale3d(1, 1, 1) rotate(0deg);
+    }
+    15% {
+        transform: scale3d(0.92, 1.08, 1) rotate(-0.8deg);
+    }
+    40% {
+        transform: scale3d(1.08, 0.92, 1) rotate(0.8deg);
+    }
+    65% {
+        transform: scale3d(0.98, 1.02, 1) rotate(-0.4deg);
+    }
+    85% {
+        transform: scale3d(1.02, 0.98, 1) rotate(0.3deg);
+    }
 }
