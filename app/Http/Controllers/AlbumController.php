@@ -19,12 +19,7 @@ class AlbumController extends Controller
             );
             $album->cover = isset($cover[0]) ? $cover[0]->url : $noCover;
         }
-        return view('album', ['albums' => $albums]);
-    }
-
-    public function seeAddTemp()
-    {
-        return view('ajoutAlbum');
+        return view('album.grid', ['albums' => $albums]);
     }
 
     public function addAlbum(Request $request)
@@ -35,8 +30,8 @@ class AlbumController extends Controller
 
         $validate['creation'] = now()->format('Y-m-d H:i:s');
 
-        Album::create($validate);
+        $album = Album::create($validate)->save();
 
-        return redirect('/albums')->with('success', 'Album créé avec succès !');
+        return redirect("/album/$album->id")->with('success', 'Album créé avec succès !');
     }
 }

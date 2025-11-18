@@ -35,22 +35,26 @@ body {
         no-repeat center / contain;
     background-color: #d9fcba;
     aspect-ratio: 7 / 5;
-    width: 15rem;
-    height: 11rem;
+    width: 100%;
+    height: 100%;
+}
+
+#album:hover {
+    transform: scale(0.98) translateY(-10px) rotate(1deg);
 }
 
 #album:hover #arrow {
-    transform: rotate(360deg)
+    transform: rotate(90deg)
     scale(1.25);
 }
 
 #grid-img {
-    border: 0px var(--color-blue) solid;
+    border: 0px var(--color-basic) solid;
 }
 
 #grid-img:hover {
-    border:0.2rem var(--color-blue) solid;
-    transform: scale(1.05) rotate(2deg);
+    border:0.2rem var(--color-basic) solid;
+    transform: scale(1.02) rotate(1deg);
     cursor:pointer;
     border-radius:1.5rem;
 }
