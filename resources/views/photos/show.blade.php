@@ -6,7 +6,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
                 <a href="{{ url()->previous() }}" class="text-blue hover:underline flex items-center mb-4">
-                    <img class="mr-2" src="{{ asset("assets/arrow.svg") }}"
+                    <img class="mr-1" src="{{ asset("assets/arrow.svg") }}"
                         style="width:1.5rem;transform:rotate(-155deg);" />
                     Retour à l'album
                 </a>
@@ -26,7 +26,7 @@
                     <span class="text-gray-500 text-sm">ID de l'album : {{ $photo->album_id }}</span>
                 </div>
             </div>
-            <div class="max-h-[80vh] overflow-y-auto">
+            <div class="max-h-[80vh] overflow-y-auto p-2">
                 <div class="columns-1 sm:columns-2 gap-4 space-y-4">
                     @foreach($photos as $photo)
                         <a class="mb-4 break-inside-avoid block" href="{{ route('photos.show', ['id' => $photo->id]) }}">

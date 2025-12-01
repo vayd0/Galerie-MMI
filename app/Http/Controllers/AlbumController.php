@@ -22,6 +22,13 @@ class AlbumController extends Controller
         return view('album.grid', ['albums' => $albums]);
     }
 
+        public function deleteAlbum($id)
+    {
+        Album::findOrFail($id) -> delete();
+
+        return redirect("/album/$id");
+    }
+
     public function addAlbum(Request $request)
     {
         $validate = $request->validate([

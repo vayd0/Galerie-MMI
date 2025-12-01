@@ -28,13 +28,23 @@ class PhotosController extends Controller
 
         return redirect("/album/{$validate['album_id']}")->with('success', 'Photo ajoutée avec succès !');
     }
+
+    public function destroy($id)
+    {
+        $photo = Photo::findOrFail($id);
+        $albumId = $photo->album_id;
+        $photo->delete();
+
+        return redirect("/album/$albumId")->with('success', 'Photo supprimée avec succès !');
+    }
+
     public function show($id)
     {
         $photo = Photo::findOrFail($id);
-        $allPhotos = Photo::all("*");
+        $allPhotos = Album::findOrFail(id: $photo -> album_id);
         return view('photos.show', [
             "photo" => $photo,
-            "photos" => $allPhotos
+            "photos" => $allPhotos -> photos
         ]);
     }
 }

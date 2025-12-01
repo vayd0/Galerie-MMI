@@ -7,7 +7,7 @@
         </li>
         
         @if (Request::is('album/*') && is_numeric(Request::segment(2)))
-            <li class="nav-item hover:cursor-pointer" onclick="openModal('addPhotosModal')">
+            <li class="nav-item hover:cursor-pointer" onclick="openModal('addPhotoModal')">
                 <button><i class="fa-solid fa-file-arrow-up"></i></button>
             </li>
         @else
@@ -15,10 +15,6 @@
                 <button><i class="fa-solid fa-folder-plus"></i></button>
             </li>
         @endif
-
-        <li class="nav-item hover:cursor-pointer">
-            <button><i class="fa-solid fa-user"></i></button>
-        </li>
         <li class="nav-item hover:cursor-pointer">
             <button><i class="fa-solid fa-magnifying-glass"></i></button>
         </li>

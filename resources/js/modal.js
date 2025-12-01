@@ -19,7 +19,7 @@ window.openModal = function (modalId) {
 };
 
 window.closeModal = function (modalId) {
-    const modal = document.getElementById(modalId || "addAlbumModal");
+    const modal = document.getElementById(modalId || "addAlbumModal" || "addPhotoModal");
     const modalContent =
         modal.querySelector("[data-modal-content]") ||
         modal.querySelector(".relative");
