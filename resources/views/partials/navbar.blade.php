@@ -1,5 +1,6 @@
-<nav class="sidebar fixed top-0 w-[5rem] h-[100vh] bg-white p-4 text-zinc-900 flex flex-col rounded-r-2xl shadow-xl">
-    <img class="mb-4" src="{{ asset('assets/logo.svg') }}" alt="Logo" />
+
+<nav class="glass-morph sidebar w-[5rem] h-full bg-white p-4 my-auto text-zinc-900 flex flex-col rounded-r-2xl shadow-xl">
+    <img class="mb-4 w-[4rem]" src="{{ asset('assets/logo.svg') }}" alt="Logo" />
 
     <ul class="grid grid-cols-1 text-[1.4rem] gap-3 text-center items-center justify-items-center">
         <li class="nav-item hover:cursor-pointer">

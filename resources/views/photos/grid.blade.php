@@ -1,9 +1,11 @@
 @extends("templates.app")
 @section('content')
     @include("components.modals.addPhotoModal")
-
+    <div class="fixed inset-0 z-[-30]">
+        @include("components.utils.background")
+    </div>
     <div
-        class="max-h-[90vh] max-w-full overflow-y-auto overflow-x-hidden grid-col-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 p-4 [column-gap:1rem] [row-gap:1rem]">
+        class="h-full w-full glass-morph overflow-y-auto overflow-x-hidden grid-col-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 p-4 [column-gap:1rem] [row-gap:1rem]">
         <div class="break-inside-avoid mb-4">
             <button
                 class="w-full h-[15rem] bg-basic flex justify-center items-center border border-3 border-blue rounded-xl hover:bg-blue hover:border-basic transition-all duration-300 text-blue hover:text-basic"

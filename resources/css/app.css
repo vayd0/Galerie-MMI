@@ -43,8 +43,7 @@ body {
 }
 
 #album:hover #arrow {
-    transform: rotate(90deg)
-    scale(.6);
+    transform: rotate(90deg) scale(0.6);
 }
 
 #grid-img {
@@ -52,34 +51,46 @@ body {
 }
 
 #grid-img:hover {
-    border:0.2rem var(--color-basic) solid;
+    border: 0.2rem var(--color-basic) solid;
     transform: scale(1.02) rotate(1deg);
-    cursor:pointer;
-    border-radius:1.5rem;
+    cursor: pointer;
+    border-radius: 1.5rem;
 }
 
-#add-photo:hover, #add-album:hover {
+#add-photo:hover,
+#add-album:hover {
     transform: scale(1.05) rotate(2deg);
-    cursor:pointer;
-    border-radius:1.5rem;
+    cursor: pointer;
+    border-radius: 1.5rem;
 }
 
-#add-photo i, #add-album i {
-    font-size:2rem;
+#add-photo i,
+#add-album i {
+    font-size: 2rem;
     transition: all 0.2s ease-in-out;
 }
 
-#add-photo:hover i, #add-album:hover i {
-    font-size:3rem;
+#add-photo:hover i,
+#add-album:hover i {
+    font-size: 3rem;
 }
 
 .gelatine {
-  animation: gelatine 0.5s infinite;
+    animation: gelatine 0.5s infinite;
 }
 
+.glass-morph {
+    background: rgba(37, 37, 37, 0.05);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(3.5px);
+    -webkit-backdrop-filter: blur(3.5px);
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
 
 @keyframes gelatine {
-    0%, 100% {
+    0%,
+    100% {
         transform: scale3d(1, 1, 1) rotate(0deg);
     }
     15% {
