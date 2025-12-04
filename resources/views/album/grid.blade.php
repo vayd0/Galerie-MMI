@@ -1,6 +1,6 @@
 @extends("templates.app")
 @section('content')
-        @include("components.utils.loading")
+    @include("components.utils.loading")
     @include("partials.header")
     @include("components.modals.addAlbumModal")
 

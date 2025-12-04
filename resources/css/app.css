@@ -88,6 +88,10 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+#searchBar div {
+    border-radius: 50px;
+}
+
 @keyframes gelatine {
     0%,
     100% {
