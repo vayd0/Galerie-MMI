@@ -1,17 +1,16 @@
 @extends("templates.app")
-@include("components.modals.addAlbumModal")
 @section('content')
-    <div class="fixed inset-0 z-[-30]">
-        @include("components.utils.background")
-    </div>
+        @include("components.utils.loading")
+    @include("partials.header")
+    @include("components.modals.addAlbumModal")
+
     <section class="h-full m-auto">
-        @include("partials.header")
         <div class="h-[90%] glass-morph overflow-hidden">
             <section
                 class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-10 w-full mt-2 py-[3rem] px-[1.5rem] max-h-[90vh] overflow-y-auto overflow-x-hidden">
                 <div
                     class="relative p-1 bg-darkblue rounded-xl hover:cursor-pointer transition-all duration-300 hover:scale-102">
-                    <button type="button" onclick="openModal('addAlbumModal')" class="w-full">
+                    <button type="button" onclick="openModal('addAlbumModal')" class="w-full h-full">
                         <div class="bg-darkblue w-full h-[15rem] sm:h-full flex justify-center items-center border border-darkblue rounded-xl hover:bg-basic hover:border-3 transition-all duration-300 text-basic hover:text-blue"
                             id="add-album">
                             <i class="fa-solid fa-plus"></i>

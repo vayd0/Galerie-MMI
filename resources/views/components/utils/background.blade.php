@@ -987,7 +987,7 @@ void main(void) {
     //gl.bindFramebuffer(gl.FRAMEBUFFER, null);
     gl.bindFramebuffer(gl.FRAMEBUFFER, renderSpec.mainRT.frameBuffer);
     gl.viewport(0, 0, renderSpec.mainRT.width, renderSpec.mainRT.height);
-    gl.clearColor(0.5, 0.7, 1.0, 1.0); // <-- couleur du fond modifiée ici (bleu clair)
+    gl.clearColor(0.5, 0.7, 1.0, 1.0);
     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
     renderBackground();
@@ -1080,7 +1080,6 @@ void main(void) {
     animate();
   });
 
-  //set window.requestAnimationFrame
   (function (w, r) {
     w['r' + r] = w['r' + r] || w['webkitR' + r] || w['mozR' + r] || w['msR' + r] || w['oR' + r] || function (c) { w.setTimeout(c, 1000 / 60); };
   })(window, 'requestAnimationFrame');

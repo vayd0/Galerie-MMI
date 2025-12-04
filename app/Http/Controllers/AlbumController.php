@@ -24,9 +24,8 @@ class AlbumController extends Controller
 
         public function deleteAlbum($id)
     {
-        Album::findOrFail($id) -> delete();
-
-        return redirect("/album/$id");
+            Album::findOrFail($id)->delete();
+            return redirect("/")->with('success', 'Album supprimé avec succès !');
     }
 
     public function addAlbum(Request $request)
@@ -37,7 +36,8 @@ class AlbumController extends Controller
 
         $validate['creation'] = now()->format('Y-m-d H:i:s');
 
-        $album = Album::create($validate)->save();
+        $album = new Album($validate);
+        $album->save();
 
         return redirect("/album/$album->id")->with('success', 'Album créé avec succès !');
     }

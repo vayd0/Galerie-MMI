@@ -1,6 +1,7 @@
-<div class="loading fixed top-0 h-[100%] w-[100%] flex justify-center items-center bg-white z-99 transition-all duration-700">
-    <svg class="w-[12rem] h-[12rem]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1400 1200" role="img"
-        aria-hidden="true">
+<div class="loading fixed top-0 left-0 h-[100%] w-[100%] flex justify-center items-center z-99 transition-all duration-700"
+    style="box-shadow: inset 0 0 0 100vh #fff; background-color:transparent !important; ">
+    <svg class="w-[12rem] h-[12rem] transition-all duration-700" xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 1400 1200" role="img" aria-hidden="true">
         <defs>
             <style>
                 @keyframes loading {
@@ -44,14 +45,12 @@
         </defs>
 
         <g class="logo">
-            <ellipse class="cls-2" cx="640.53" cy="588.57" rx="395.24" ry="170.78"
-                transform="rotate(-48.39)"
+            <ellipse class="cls-2" cx="640.53" cy="588.57" rx="395.24" ry="170.78" transform="rotate(-48.39)"
                 style="animation: 1.5s loading2 ; transform-origin: 46% 50%;" />
             <path class="cls-4"
                 d="M1118.84,585.49c.13,107.36-273.48,216.72-509.45,208.98-206.45-6.77-453.72-105.46-453.66-208.66.06-103.21,247.52-201.4,453.66-208.24,235.56-7.82,509.32,100.58,509.45,207.92Z"
                 style="animation: 0.9s loading ; transform-origin: 46% 50%;" />
-            <ellipse class="cls-2" cx="628.16" cy="577.58" rx="170.78" ry="395.24"
-                transform="rotate(-48.39)"
+            <ellipse class="cls-2" cx="628.16" cy="577.58" rx="170.78" ry="395.24" transform="rotate(-48.39)"
                 style="animation: 0.5s loading2 ; transform-origin: 46% 50%;" />
             <ellipse class="cls-4" cx="637.98" cy="585.81" rx="170.78" ry="395.24"
                 style="animation: 0.4s loading ; transform-origin: 46% 50%;" />
@@ -68,15 +67,16 @@
 </div>
 
 <script>
-    const loading = document.querySelector(".loading");
-    const logo = document.querySelector(".logo");
-    const ellipse = logo.querySelectorAll("ellipse");
-    const path = logo.querySelector("path");
-
-    setTimeout(() => {
-        loading.style.opacity = 0;
+    document.addEventListener("DOMContentLoaded", function () {
+        const loading = document.querySelector(".loading");
         setTimeout(() => {
-            loading.style.display = "none"
-        }, 700);
-    }, 1600);
+            loading.style.boxShadow = `inset 0 0 0 0vh #fff`;
+
+            loading.style.pointerEvents = 'none';
+            loading.querySelector("svg").style.transform = "translateY(100vh) rotate(180deg)";
+            setTimeout(() => {
+                loading.style.display = "none";
+            }, 700);
+        }, 1000);
+    });
 </script>
