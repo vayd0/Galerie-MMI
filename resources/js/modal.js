@@ -19,7 +19,9 @@ window.openModal = function (modalId) {
 };
 
 window.closeModal = function (modalId) {
-    const modal = document.getElementById(modalId || "addAlbumModal" || "addPhotoModal");
+    const modal = document.getElementById(
+        modalId || "addAlbumModal" || "addPhotoModal"
+    );
     const modalContent =
         modal.querySelector("[data-modal-content]") ||
         modal.querySelector(".relative");
@@ -119,6 +121,17 @@ document.addEventListener("DOMContentLoaded", function () {
             if (openModal) {
                 closeModal(openModal.id);
             }
+        }
+    });
+
+    const fileInput = document.getElementById("fileInput");
+    const urlInput = document.getElementById("url");
+
+    fileInput.addEventListener("change", function () {
+        if (fileInput.files.length > 0) {
+            urlInput.removeAttribute("required");
+            urlInput.type = "text"
+            urlInput.value = fileInput.files[0].name;
         }
     });
 });

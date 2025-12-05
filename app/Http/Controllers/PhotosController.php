@@ -21,8 +21,8 @@ class PhotosController extends Controller
             "titre" => "required|string|max:255",
             "note" => "required|integer|min:1|max:5",
             "album_id" => "required|exists:albums,id",
-            "url" => "nullable|url|max:255",
-            "photo_file" => "nullable|image|max:2048"
+            "url" => "nullable|string|max:255",
+            "photo_file" => "nullable|image|max:20480"
         ]);
 
         if ($request->hasFile('photo_file')) {
@@ -33,7 +33,7 @@ class PhotosController extends Controller
         } else {
             return back()->withErrors(['url' => 'Veuillez fournir une URL ou un fichier image.']);
         }
-
+        
         $photo = new Photo([
             "titre" => $request->input('titre'),
             "url" => $url,
@@ -41,7 +41,6 @@ class PhotosController extends Controller
             "album_id" => $request->input('album_id')
         ]);
         $photo->save();
-
         return redirect("/albums/{$request->input('album_id')}")->with('success', 'Photo ajoutée avec succès !');
     }
 
@@ -57,10 +56,10 @@ class PhotosController extends Controller
     public function show($id)
     {
         $photo = Photo::findOrFail($id);
-        $allPhotos = Album::findOrFail(id: $photo -> album_id);
+        $allPhotos = Album::findOrFail(id: $photo->album_id);
         return view('photos.show', [
             "photo" => $photo,
-            "photos" => $allPhotos -> photos
+            "photos" => $allPhotos->photos
         ]);
     }
 }

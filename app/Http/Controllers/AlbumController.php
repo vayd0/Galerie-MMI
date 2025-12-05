@@ -9,15 +9,15 @@ class AlbumController extends Controller
 {
     public function getAlbum()
     {
-        $albums = Album::all();
-        $noCover = "https://discourse.gohugo.io/t/image-is-not-shown-or-broken-on-webpage/22584";
+        $userId = auth()->id();
+        $albums = Album::where('user_id', $userId)->get();
 
         foreach ($albums as $album) {
             $cover = DB::select(
                 "SELECT url FROM Photos WHERE album_id = ? ORDER BY id ASC LIMIT 1",
                 [$album->id]
             );
-            $album->cover = isset($cover[0]) ? $cover[0]->url : $noCover;
+            $album->cover = isset($cover[0]) ? $cover[0]->url : "";
         }
         return view('album.grid', ['albums' => $albums]);
     }
@@ -25,7 +25,7 @@ class AlbumController extends Controller
         public function deleteAlbum($id)
     {
             Album::findOrFail($id)->delete();
-            return redirect("/")->with('success', 'Album supprimé avec succès !');
+            return redirect("/albums")->with('success', 'Album supprimé avec succès !');
     }
 
     public function addAlbum(Request $request)
@@ -35,10 +35,11 @@ class AlbumController extends Controller
         ]);
 
         $validate['creation'] = now()->format('Y-m-d H:i:s');
+        $validate['user_id'] = auth()->id();
 
         $album = new Album($validate);
         $album->save();
 
-        return redirect("/album/$album->id")->with('success', 'Album créé avec succès !');
+        return redirect("/albums/$album->id")->with('success', 'Album créé avec succès !');
     }
 }
