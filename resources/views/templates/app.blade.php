@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Squish</title>
     <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
@@ -15,7 +15,7 @@
 
     <div class="w-full h-full flex justify-center items-center p-2">
         <div class="relative z-10 flex justify-between m-auto h-[90vh] w-[95vw] gap-4">
-            @include("partials.navbar")
+            @include("partials.sidebar")
             @section('top')
             @endsection
 
@@ -28,6 +28,9 @@
         </div>
     </div>
     @vite('resources/js/modal.js')
+    @vite('resources/js/search.js')
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://unpkg.com/tippy.js@6"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     @stack('tooltip.scripts')

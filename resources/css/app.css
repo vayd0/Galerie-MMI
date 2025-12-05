@@ -88,13 +88,35 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
-#searchBar div {
+#searchBar {
     border-radius: 50px;
+    animation: bounceScaleIn 0.5s ease-in, hithere 1.2s ease;
+}
+ 
+#searchBtn {
+    border-radius: 50%;
+    animation: gelatine 2s infinite;
+}
+
+#searchBar input {
+    border:none;
+    outline:none;
+}
+
+.bounceOut {
+    animation: bounceScaleOut 1.2s ease-in-out;
+}
+
+@keyframes hithere {
+  30% { transform: scale(1.2); }
+  40%, 60% { transform: rotate(-2deg) scale(1.2); }
+  50% { transform: rotate(2deg) scale(1.2); }
+  70% { transform: rotate(0deg) scale(1.2); }
+  100% { transform: scale(1); }
 }
 
 @keyframes gelatine {
-    0%,
-    100% {
+    0%, 100% {
         transform: scale3d(1, 1, 1) rotate(0deg);
     }
     15% {
@@ -108,5 +130,42 @@ body {
     }
     85% {
         transform: scale3d(1.02, 0.98, 1) rotate(0.3deg);
+    }
+}
+
+@keyframes bounceScaleIn {
+    0% {
+        opacity: 0;
+        transform: scale(0) rotate(-8deg);
+    }
+    60% {
+        opacity: 1;
+        transform: scale(1.1) rotate(4deg);
+    }
+    80% {
+        transform: scale(0.95) rotate(-2deg);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+@keyframes bounceScaleOut {
+    0% {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+    20% {
+        opacity: 1;
+        transform: scale(0.95) rotate(-2deg);
+    }
+    40% {
+        opacity: 1;
+        transform: scale(1.1) rotate(4deg);
+    }
+    100% {
+        opacity: 0;
+        transform: scale(0) rotate(-8deg);
     }
 }

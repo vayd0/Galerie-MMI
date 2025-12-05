@@ -1,6 +1,7 @@
 @extends("templates.app")
 @section('content')
     @include("components.modals.addPhotoModal")
+    
     <div
         class="h-full w-full glass-morph overflow-y-auto overflow-x-hidden grid-col-1 sm:columns-2 md:columns-3 lg:columns-4 gap-4 p-4 [column-gap:1rem] [row-gap:1rem]">
         <div class="break-inside-avoid mb-4">

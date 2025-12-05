@@ -21,7 +21,7 @@
                 @foreach ($albums as $album)
                     <div class="relative p-1 bg-darkblue rounded-2xl hover:cursor-pointer transition-all duration-300 hover:scale-95 group"
                         id="album">
-                        <a href="/album/{{ $album->id }}">
+                        <a href="/albums/{{ $album->id }}">
                             <div class="album relative overflow-visible">
                                 <img class="invertedAlbum relative overflow-visible w-full h-[8rem] object-cover rounded-xl"
                                     data-tippy-content="{{ $album->titre }}" src="{{ $album->cover }}" alt="cover"
@@ -34,7 +34,7 @@
                             </div>
                         </a>
                         <div
-                            class="absolute left-1/2 bottom-0 -translate-x-1/2 w-[60%] md:w-[80%] h-8 bg-darkblue rounded-b-lg z-[-10] transition-transform duration-300 translate-y-0 group-hover:translate-y-8 p-1 flex items-center justify-center space-x-4">
+                            class="absolute left-1/2 bottom-1 -translate-x-1/2 w-[60%] md:w-[80%] h-8 bg-darkblue rounded-b-lg z-[-10] transition-transform duration-300 translate-y-0 group-hover:translate-y-8 p-1 flex items-center justify-center space-x-4">
                             <button type="button"
                                 class="text-basic hover:text-lime hover:cursor-pointer hover:scale-110 transition-transform duration-200"
                                 title="Éditer">

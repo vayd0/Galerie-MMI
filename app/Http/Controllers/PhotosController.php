@@ -17,16 +17,32 @@ class PhotosController extends Controller
 
     public function addPhotos(Request $request)
     {
-        $validate = $request->validate([
+        $request->validate([
             "titre" => "required|string|max:255",
-            "url" => "required|url|max:255",
             "note" => "required|integer|min:1|max:5",
-            "album_id" => "required|exists:albums,id"
+            "album_id" => "required|exists:albums,id",
+            "url" => "nullable|url|max:255",
+            "photo_file" => "nullable|image|max:2048"
         ]);
 
-        Photo::create($validate)->save();
+        if ($request->hasFile('photo_file')) {
+            $path = $request->file('photo_file')->store('photos', 'public');
+            $url = '/storage/' . $path;
+        } elseif ($request->filled('url')) {
+            $url = $request->input('url');
+        } else {
+            return back()->withErrors(['url' => 'Veuillez fournir une URL ou un fichier image.']);
+        }
 
-        return redirect("/album/{$validate['album_id']}")->with('success', 'Photo ajoutée avec succès !');
+        $photo = new Photo([
+            "titre" => $request->input('titre'),
+            "url" => $url,
+            "note" => $request->input('note'),
+            "album_id" => $request->input('album_id')
+        ]);
+        $photo->save();
+
+        return redirect("/albums/{$request->input('album_id')}")->with('success', 'Photo ajoutée avec succès !');
     }
 
     public function destroy($id)
