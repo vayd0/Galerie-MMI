@@ -37,7 +37,7 @@
                     <i class="fa-solid fa-users"></i></button>
             </li>
             <li class="nav-item text-[1.4rem]">
-                <button class="hover:cursor-pointer" onclick="openModal('addUsersToAlbum')">
+                <button class="hover:cursor-pointer">
                     <i class="fa-solid fa-gear"></i></button>
             </li>
         </ul>
