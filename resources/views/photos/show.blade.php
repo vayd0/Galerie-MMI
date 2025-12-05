@@ -17,7 +17,6 @@
                         onerror="this.onerror=null;this.src='{{ asset('assets/background.svg') }}'; this.classList.add('opacity-50');">
                 </div>
                 <div class="flex items-center gap-2 mb-4 text-1xl">
-                    <span class="font-semibold">Note :</span>
                     @for ($i = 1; $i <= 5; $i++)
                         <i class="fa-solid fa-star {{ $i <= $photo->note ? 'text-light-lime' : 'text-gray-300' }}"></i>
                     @endfor

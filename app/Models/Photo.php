@@ -17,11 +17,13 @@ class Photo extends Model
         'album_id'
     ];
 
-    public function album() {
+    public function album()
+    {
         return $this->belongsTo(Album::class, "album_id");
     }
 
-    public function tags() {
-        return $this->belongsToMany(Tag::class,"possede_tag", "photo_id","tag_id");
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class, "possede_tag", "photo_id", "tag_id");
     }
 }

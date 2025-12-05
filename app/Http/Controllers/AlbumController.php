@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Album;
+use App\Http\Controllers\PhotosController;
 
 class AlbumController extends Controller
 {
@@ -19,13 +20,18 @@ class AlbumController extends Controller
             );
             $album->cover = isset($cover[0]) ? $cover[0]->url : "";
         }
+        
         return view('album.grid', ['albums' => $albums]);
     }
 
-        public function deleteAlbum($id)
+    public function deleteAlbum($id)
     {
-            Album::findOrFail($id)->delete();
-            return redirect("/albums")->with('success', 'Album supprimé avec succès !');
+        $album = Album::findOrFail($id);
+        if ($album->user_id !== auth()->id()) {
+            abort(403, 'Vous ne pouvez pas supprimer cet album.');
+        }
+        $album->delete();
+        return redirect("/albums")->with('success', 'Album supprimé avec succès !');
     }
 
     public function addAlbum(Request $request)
