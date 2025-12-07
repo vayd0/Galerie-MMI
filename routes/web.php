@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PhotosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlbumController;
+use App\Http\Controllers\SearchController;
 
 // Index
 Route::get('/', [HomeController::class, "index"]);
@@ -19,3 +20,6 @@ Route::get('/photos/{id}', [PhotosController::class, 'show'])->name('photos.show
 Route::post("/photos/add", [PhotosController::class, "addPhotos"])->name("photos.add")->middleware("auth");
 Route::post("/photos/delete", [PhotosController::class, "deletePhotos"])->name("photos.delete")->middleware("auth");
 Route::delete('/photos/{id}', [PhotosController::class, 'destroy'])->name('photos.destroy')->where('id', '[0-9]+')->middleware("auth");
+
+// Routes recherche
+Route::get('/search', [SearchController::class, 'search']);
