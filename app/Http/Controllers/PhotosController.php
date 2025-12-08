@@ -1,5 +1,7 @@
 <?php
 
+
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -7,6 +9,7 @@ use DB;
 use App\Models\Album;
 use App\Models\Photo;
 use App\Models\Tag;
+use App\Models\PossedeTag;
 
 class PhotosController extends Controller
 {
@@ -54,14 +57,12 @@ class PhotosController extends Controller
 
         $tags = $request->input('tags');
         if ($tags) {
-            $tagsArray = is_array($tags) ? $tags : json_decode($tags, true);
-            if (is_array($tagsArray)) {
-                $tagIds = [];
-                foreach ($tagsArray as $tagName) {
-                    $tag = \App\Models\Tag::firstOrCreate(['nom' => $tagName]);
-                    $tagIds[] = $tag->id;
-                }
-                $photo->tags()->sync($tagIds);
+            foreach (is_array($tags) ? $tags : explode(',', $tags) ?? [] as $tagName) {
+                $tag = Tag::firstOrCreate(['nom' => $tagName]);
+                PossedeTag::firstOrCreate([
+                    'photo_id' => $photo->id,
+                    'tag_id' => $tag->id
+                ]);
             }
         }
 
@@ -79,15 +80,10 @@ class PhotosController extends Controller
 
     public function show($id)
     {
-        $photo = Photo::findOrFail($id);
+        $photo = Photo::with('tags')->findOrFail($id);
         $album = Album::findOrFail($photo->album_id);
-
-        if ($album->user_id !== auth()->id()) {
-            abort(403, 'Vous ne pouvez pas accéder à cette photo.');
-        }
-
+        if ($album->user_id !== auth()->id()) abort(403, 'Vous ne pouvez pas accéder à cette photo.');
         $tags = Tag::pluck('nom')->toArray();
-
         return view('photos.show', [
             "photo" => $photo,
             "photos" => $album->photos,

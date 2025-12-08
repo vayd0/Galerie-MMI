@@ -1,3 +1,4 @@
+@props([])
 <div id="addAlbumModal" class="fixed inset-0 hidden items-center justify-center z-50 transition-all duration-300 ease-in-out">
     <div class="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
     

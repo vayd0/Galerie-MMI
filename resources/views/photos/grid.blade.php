@@ -1,9 +1,6 @@
 @extends("templates.app")
 @section('content')
-    @include("components.modals.addPhotoModal")
-    <script>
-        window.tagsFromBlade = @json($tags);
-    </script>
+    <x-add-photo-modal :album-id="null" />
 
     <div class="h-full w-full glass-morph overflow-y-auto overflow-x-hidden p-4">
         <div class="mb-4">
@@ -13,7 +10,7 @@
                 <i class="fa-solid fa-plus"></i>
             </button>
         </div>
-        <x-masonry-grid :items="$photos" type="photo" />
+        <x-masonry-grid :items="$photos" />
     </div>
 @endsection
 @push('tooltip.scripts')

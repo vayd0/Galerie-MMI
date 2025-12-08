@@ -1,3 +1,4 @@
+@props(['albumId' => null])
 <div id="addPhotoModal"
     class="fixed inset-0 hidden items-center justify-center z-50 transition-all duration-300 ease-in-out">
     <div class="absolute inset-0 bg-black/20 backdrop-blur-sm"></div>
@@ -17,7 +18,7 @@
 
         <form action="{{ route('photos.add') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
-            <input type="hidden" name="album_id" value="{{ $albumId ?? '' }}">
+            <input type="hidden" name="album_id" value="{{ $albumId }}">
             <input type="hidden" id="noteValue" name="note" value="3">
 
             <div>
@@ -63,7 +64,7 @@
                         </button>
                     </div>
                     <div id="tagDropdown"
-                        class="absolute max-h-[10rem] left-0 bg-white overflow-y-scroll border border-gray-200 rounded-xl shadow-lg mt-1 w-full z-10 hidden">
+                        class="absolute min-h-[3rem] max-h-[10rem] left-0 bg-white overflow-y-scroll border border-gray-200 rounded-xl shadow-lg mt-1 w-full z-10 hidden">
                     </div>
                 </div>
                 <div id="selectedTags" class="flex flex-wrap gap-2 mt-2"></div>
