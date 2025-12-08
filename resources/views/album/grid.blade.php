@@ -12,7 +12,7 @@
                     <div
                         class="relative p-1 bg-darkblue rounded-xl hover:cursor-pointer transition-all duration-300 hover:scale-102">
                         <button type="button" onclick="openModal('addAlbumModal')" class="w-full h-full">
-                            <div class="bg-darkblue w-full h-[15rem] sm:h-full flex justify-center items-center border border-darkblue rounded-xl hover:bg-basic hover:border-3 transition-all duration-300 text-basic hover:text-blue"
+                            <div class="bg-darkblue w-full h-[15rem] sm:h-[8rem] flex justify-center items-center border border-darkblue rounded-xl hover:bg-basic hover:border-3 transition-all duration-300 text-basic hover:text-blue"
                                 id="add-album">
                                 <i class="fa-solid fa-plus"></i>
                             </div>
