@@ -1,0 +1,19 @@
+@theme {
+	--font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+		"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+		"Noto Color Emoji";
+	--color-basic: #fff;
+	--color-darkblue: rgba(0, 32, 48, 1);
+	--color-blue: rgba(18, 103, 138, 1);
+	--color-turq-blue: rgba(153, 234, 162, 1);
+	--color-lime: rgba(153, 234, 162, 1);
+	--color-light-lime: rgba(217, 252, 186, 1);
+}
+
+html,
+body {
+	background-color: var(--color-basic);
+	height: 100vh;
+    max-height: 100vh;
+	width: 100vw;
+}

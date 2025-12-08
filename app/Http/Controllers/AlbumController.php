@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\Models\Album;
-use App\Http\Controllers\PhotosController;
+use App\Models\Photo;
 
 class AlbumController extends Controller
 {
@@ -13,15 +13,23 @@ class AlbumController extends Controller
         $userId = auth()->id();
         $albums = Album::where('user_id', $userId)->get();
 
+
         foreach ($albums as $album) {
-            $cover = DB::select(
-                "SELECT url FROM Photos WHERE album_id = ? ORDER BY id ASC LIMIT 1",
-                [$album->id]
-            );
-            $album->cover = isset($cover[0]) ? $cover[0]->url : "";
+            $cover = Photo::where('album_id', $album->id)
+                ->orderBy('id', 'asc')
+                ->first();
+            $album->cover = $cover ? $cover->url : "";
         }
-        
-        return view('album.grid', ['albums' => $albums]);
+
+        $albumIds = $albums->pluck('id');
+        $photos = Photo::whereIn('album_id', $albumIds)
+            ->orderByDesc('id')
+            ->get(['id', 'url', 'titre']);
+
+        return view('album.grid', [
+            'albums' => $albums,
+            'photos' => $photos
+        ]);
     }
 
     public function deleteAlbum($id)

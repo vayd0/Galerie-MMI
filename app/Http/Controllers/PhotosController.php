@@ -6,13 +6,23 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Album;
 use App\Models\Photo;
+use App\Models\Tag;
 
 class PhotosController extends Controller
 {
     public function getPhotos($id)
     {
         $album = Album::findOrFail($id);
-        return view('photos.grid', ['photos' => $album->photos, 'albumId' => $id]);
+        if ($album->user_id !== auth()->id()) {
+            abort(403, 'Vous ne pouvez pas accéder à cet album.');
+        }
+
+        $tags = Tag::pluck('nom')->toArray();
+        return view('photos.grid', [
+            'photos' => $album->photos,
+            'albumId' => $id,
+            'tags' => $tags
+        ]);
     }
 
     public function addPhotos(Request $request)
@@ -33,7 +43,7 @@ class PhotosController extends Controller
         } else {
             return back()->withErrors(['url' => 'Veuillez fournir une URL ou un fichier image.']);
         }
-        
+
         $photo = new Photo([
             "titre" => $request->input('titre'),
             "url" => $url,
@@ -41,6 +51,20 @@ class PhotosController extends Controller
             "album_id" => $request->input('album_id')
         ]);
         $photo->save();
+
+        $tags = $request->input('tags');
+        if ($tags) {
+            $tagsArray = is_array($tags) ? $tags : json_decode($tags, true);
+            if (is_array($tagsArray)) {
+                $tagIds = [];
+                foreach ($tagsArray as $tagName) {
+                    $tag = \App\Models\Tag::firstOrCreate(['nom' => $tagName]);
+                    $tagIds[] = $tag->id;
+                }
+                $photo->tags()->sync($tagIds);
+            }
+        }
+
         return redirect("/albums/{$request->input('album_id')}")->with('success', 'Photo ajoutée avec succès !');
     }
 
@@ -56,10 +80,18 @@ class PhotosController extends Controller
     public function show($id)
     {
         $photo = Photo::findOrFail($id);
-        $allPhotos = Album::findOrFail(id: $photo->album_id);
+        $album = Album::findOrFail($photo->album_id);
+
+        if ($album->user_id !== auth()->id()) {
+            abort(403, 'Vous ne pouvez pas accéder à cette photo.');
+        }
+
+        $tags = Tag::pluck('nom')->toArray();
+
         return view('photos.show', [
             "photo" => $photo,
-            "photos" => $allPhotos->photos
+            "photos" => $album->photos,
+            "tags" => $tags
         ]);
     }
 }

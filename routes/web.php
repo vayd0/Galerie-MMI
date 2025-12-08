@@ -5,6 +5,7 @@ use App\Http\Controllers\PhotosController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\TagsController;
 
 // Index
 Route::get('/', [HomeController::class, "index"]);
@@ -23,3 +24,6 @@ Route::delete('/photos/{id}', [PhotosController::class, 'destroy'])->name('photo
 
 // Routes recherche
 Route::get('/search', [SearchController::class, 'search']);
+
+
+Route::post('/tags/create', [TagsController::class, 'store'])->name('tags.create');
