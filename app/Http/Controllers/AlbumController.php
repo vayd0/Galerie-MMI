@@ -11,8 +11,12 @@ class AlbumController extends Controller
     public function getAlbum()
     {
         $userId = auth()->id();
-        $albums = Album::where('user_id', $userId)->get();
 
+        $albums = Album::where('user_id', $userId)
+            ->orWhereHas('users', function ($q) use ($userId) {
+                $q->where('users.id', $userId);
+            })
+            ->get();
 
         foreach ($albums as $album) {
             $cover = Photo::where('album_id', $album->id)
@@ -66,8 +70,6 @@ class AlbumController extends Controller
         $album = Album::findOrFail($request->album_id);
         $userId = $request->user_id;
 
-        // Exemple avec une table pivot album_user
-        // (crée la relation dans le modèle Album : users())
         $album->users()->syncWithoutDetaching([$userId]);
 
         return back()->with('success', 'Album partagé avec succès !');

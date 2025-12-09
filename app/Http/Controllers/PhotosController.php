@@ -16,11 +16,14 @@ class PhotosController extends Controller
     public function getPhotos($id)
     {
         $album = Album::findOrFail($id);
-        if ($album->user_id !== auth()->id()) {
+        $userId = auth()->id();
+
+        $hasAccess = $album->user_id == $userId || $album->users()->where('users.id', $userId)->exists();
+        if (!$hasAccess) {
             abort(403, 'Vous ne pouvez pas accéder à cet album.');
         }
 
-        $photos = $album->photos; 
+        $photos = $album->photos()->orderByDesc('id')->get(['id', 'url', 'titre']);
         $tags = Tag::all();
         $users = User::all();
 
@@ -86,7 +89,13 @@ class PhotosController extends Controller
     {
         $photo = Photo::with('tags')->findOrFail($id);
         $album = Album::findOrFail($photo->album_id);
-        if ($album->user_id !== auth()->id()) abort(403, 'Vous ne pouvez pas accéder à cette photo.');
+        $userId = auth()->id();
+
+        $hasAccess = $album->user_id == $userId || $album->users()->where('users.id', $userId)->exists();
+        if (!$hasAccess) {
+            abort(403, 'Vous ne pouvez pas accéder à cette photo.');
+        }
+
         $tags = Tag::pluck('nom')->toArray();
         return view('photos.show', [
             "photo" => $photo,

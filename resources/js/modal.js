@@ -63,9 +63,13 @@ document.addEventListener("DOMContentLoaded", function () {
             const filtered = allTags.filter(tag =>
                 tag.toLowerCase().includes(inputValue.toLowerCase()) && !selectedTags.includes(tag)
             );
-            let html = filtered.map(tag => `<div class="tag-suggestion py-3 px-4 cursor-pointer hover:bg-blue-50 select-none text-sm flex items-center gap-2" data-tag="${tag}"><i class='fa-solid fa-tag text-blue-400'></i> <span>${tag}</span></div>`).join('');
+            let html = filtered.map(tag => 
+                `<div class="tag-suggestion py-3 px-4 cursor-pointer hover:bg-blue-50 select-none text-sm flex items-center gap-2" data-tag="${tag}">
+                    <i class='fa-solid fa-tag text-blue'></i> <span>${tag}</span>
+                </div>`
+            ).join('');
             if (inputValue && !allTags.map(t => t.toLowerCase()).includes(inputValue.toLowerCase()) && !selectedTags.includes(inputValue)) {
-                html += `<div id="addTagSuggestion" class="py-3 px-4 text-blue-600 text-sm cursor-pointer hover:bg-blue-50 select-none flex items-center gap-2">+ Ajouter <span class="font-semibold">${inputValue}</span></div>`;
+                html += `<div id="addTagSuggestion" class="py-3 px-4 text-blue text-sm cursor-pointer hover:bg-blue-50 select-none flex items-center gap-2">+ Ajouter <span class="font-semibold">${inputValue}</span></div>`;
             }
             tagDropdown.innerHTML = html || showEmptyTagMessage();
         };
@@ -78,8 +82,8 @@ document.addEventListener("DOMContentLoaded", function () {
             selectedTagsDiv.innerHTML = '';
             selectedTags.forEach(tag => {
                 const tagEl = document.createElement('span');
-                tagEl.className = 'bg-blue/10 text-blue-700 px-3 py-1 rounded-xl flex items-center gap-2 text-sm font-medium';
-                tagEl.innerHTML = `${tag} <button type="button" class="ml-1 text-blue-400 hover:text-red-500 remove-tag" data-tag="${tag}"><i class="fa-solid fa-times"></i></button>`;
+                tagEl.className = 'bg-blue/10 text-blue px-3 py-1 rounded-xl flex items-center gap-2 text-sm font-medium';
+                tagEl.innerHTML = `${tag} <button type="button" class="ml-1 text-blue hover:text-red-500 remove-tag" data-tag="${tag}"><i class="fa-solid fa-times text-blue"></i></button>`;
                 selectedTagsDiv.appendChild(tagEl);
             });
             tagsHiddenInput.value = selectedTags.join(',');
