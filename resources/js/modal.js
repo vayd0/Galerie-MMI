@@ -59,8 +59,10 @@ document.addEventListener("DOMContentLoaded", function () {
             tagDropdown.innerHTML = '<div class="py-3 px-4 text-gray-400 text-sm select-none">Premier tag, à toi de jouer !</div>';
         };
         const showTagSuggestions = (inputValue) => {
-            const allTags = Array.isArray(window.tagsFromBlade) ? window.tagsFromBlade : [];
-            const filtered = allTags.filter(tag => tag.toLowerCase().includes(inputValue.toLowerCase()) && !selectedTags.includes(tag));
+            const allTags = (window.tagsFromBlade || []).map(tag => tag.nom);
+            const filtered = allTags.filter(tag =>
+                tag.toLowerCase().includes(inputValue.toLowerCase()) && !selectedTags.includes(tag)
+            );
             let html = filtered.map(tag => `<div class="tag-suggestion py-3 px-4 cursor-pointer hover:bg-blue-50 select-none text-sm flex items-center gap-2" data-tag="${tag}"><i class='fa-solid fa-tag text-blue-400'></i> <span>${tag}</span></div>`).join('');
             if (inputValue && !allTags.map(t => t.toLowerCase()).includes(inputValue.toLowerCase()) && !selectedTags.includes(inputValue)) {
                 html += `<div id="addTagSuggestion" class="py-3 px-4 text-blue-600 text-sm cursor-pointer hover:bg-blue-50 select-none flex items-center gap-2">+ Ajouter <span class="font-semibold">${inputValue}</span></div>`;

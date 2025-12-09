@@ -1,7 +1,8 @@
 @extends("templates.app")
 @section('content')
-    <x-add-photo-modal :album-id="null" />
-
+    <x-modals.addPhotoModal :album-id="$album->id" :tags="$tags" />
+    <x-modals.shareAlbum :album="$album" :users="$users" />
+    
     <div class="h-full w-full glass-morph overflow-y-auto overflow-x-hidden p-4">
         <div class="mb-4">
             <button

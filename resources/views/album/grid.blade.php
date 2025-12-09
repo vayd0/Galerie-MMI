@@ -2,7 +2,7 @@
 @section('content')
     @include("components.utils.loading")
     @include("partials.header")
-    <x-add-album-modal />
+    <x-modals.addAlbumModal />
 
     <section class="h-full m-auto">
         <div class="h-[90%] glass-morph overflow-hidden overflow-y-auto">

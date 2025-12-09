@@ -33,8 +33,9 @@
         <div class="flex-1"></div>
         <ul class="flex flex-col justify-center items-center gap-3">
             <li class="nav-item text-[1.4rem] hover:scale-105 hover:rotate-[-3deg] transition-all duration-300">
-                <button class="hover:cursor-pointer" onclick="openModal('addUsersToAlbum')">
-                    <i class="fa-solid fa-users"></i></button>
+                <button class="hover:cursor-pointer" onclick="openModal('shareAlbumModal')">
+                    <i class="fa-solid fa-users"></i>
+                </button>
             </li>
             <li class="nav-item text-[1.4rem] hover:scale-105 hover:rotate-[-3deg] transition-all duration-300">
                 <button class="hover:cursor-pointer">

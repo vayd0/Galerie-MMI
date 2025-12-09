@@ -10,7 +10,7 @@ use App\Models\Album;
 use App\Models\Photo;
 use App\Models\Tag;
 use App\Models\PossedeTag;
-
+use App\Models\User;
 class PhotosController extends Controller
 {
     public function getPhotos($id)
@@ -20,10 +20,14 @@ class PhotosController extends Controller
             abort(403, 'Vous ne pouvez pas accéder à cet album.');
         }
 
-        $tags = Tag::pluck('nom')->toArray();
+        $photos = $album->photos; 
+        $tags = Tag::all();
+        $users = User::all();
+
         return view('photos.grid', [
-            'photos' => $album->photos,
-            'albumId' => $id,
+            'album' => $album,
+            'photos' => $photos,
+            'users' => $users,
             'tags' => $tags
         ]);
     }
@@ -35,7 +39,7 @@ class PhotosController extends Controller
             "note" => "required|integer|min:1|max:5",
             "album_id" => "required|exists:albums,id",
             "url" => "nullable|string|max:255",
-            "photo_file" => "nullable|image|max:20480"
+            "photo_file" => "nullable|image"
         ]);
 
         if ($request->hasFile('photo_file')) {
@@ -75,7 +79,7 @@ class PhotosController extends Controller
         $albumId = $photo->album_id;
         $photo->delete();
 
-        return redirect("/album/$albumId")->with('success', 'Photo supprimée avec succès !');
+        return redirect("/albums/$albumId")->with('success', 'Photo supprimée avec succès !');
     }
 
     public function show($id)

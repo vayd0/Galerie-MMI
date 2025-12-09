@@ -56,4 +56,20 @@ class AlbumController extends Controller
 
         return redirect("/albums/$album->id")->with('success', 'Album créé avec succès !');
     }
+    public function share(Request $request)
+    {
+        $request->validate([
+            'album_id' => 'required|exists:albums,id',
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $album = Album::findOrFail($request->album_id);
+        $userId = $request->user_id;
+
+        // Exemple avec une table pivot album_user
+        // (crée la relation dans le modèle Album : users())
+        $album->users()->syncWithoutDetaching([$userId]);
+
+        return back()->with('success', 'Album partagé avec succès !');
+    }
 }

@@ -2,7 +2,6 @@
 
 @section('content')
     @include("components.modals.addPhotoModal", ['albumId' => $photo->album_id ?? null])
-
     <div class="w-full h-full mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
             <div class="glass-morph p-4 h-full">
