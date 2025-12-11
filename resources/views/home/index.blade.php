@@ -1,4 +1,4 @@
-@extends("templates.app")
+@extends("templates.home")
 @section('content')
-@include("partials.navbar")
+    @include("partials.navbar")
 @endsection

@@ -1,5 +1,5 @@
 @include("components.modals.searchBar")
-@if ((!Request::is('/')))
+@if ((!Request::is('/') && !Request::is('login') && !Request::is('register')))
     <nav
         class="glass-morph sidebar w-[5rem] h-full bg-white p-4 my-auto text-zinc-900 flex flex-col rounded-r-2xl shadow-xl">
         <img class="mb-4 w-[4rem]" src="{{ asset('assets/logo.svg') }}" alt="Logo" />
