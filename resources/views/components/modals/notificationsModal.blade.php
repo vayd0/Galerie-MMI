@@ -17,7 +17,7 @@
         </div>
         <div class="space-y-3 max-h-[60vh] overflow-y-auto">
             @php
-                $notifications = auth()->user()->notifications()->orderByDesc('created_at')->get();
+                $notifications = auth()->check() ? auth()->user()->notifications()->orderByDesc('created_at')->get() : collect();
             @endphp
             @forelse($notifications as $notif)
                 <div class="flex items-center w-full max-w-full p-4 bg-basic rounded-base border-1 border-gray-200 shadow-xs rounded-xl"
