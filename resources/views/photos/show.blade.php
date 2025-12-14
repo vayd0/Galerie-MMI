@@ -10,7 +10,16 @@
                         style="width:1.5rem;transform:rotate(-155deg);" />
                     Retour à l'album
                 </a>
-                <h1 class="text-2xl font-bold mb-2">{{ $photo->titre }}</h1>
+                <h1 class="text-xl font-bold mb-2 flex items-center justify-between">
+                    {{ $photo->titre }}
+                    <form action="{{ route('photos.destroy', $photo->id) }}" method="POST" onsubmit="return confirm('Supprimer cette photo ?')" class="ml-2">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" title="Supprimer" class="text-red-500 hover:text-red-700 transition hover:cursor-pointer">
+                            <i class="fa-solid fa-trash"></i>
+                        </button>
+                    </form>
+                </h1>
                 <div class="relative rounded-xl overflow-hidden mb-6">
                     <img id="main-photo" src="{{ $photo->url }}" alt="{{ $photo->titre }}"
                         class="w-full object-cover max-h-[50vh]"
