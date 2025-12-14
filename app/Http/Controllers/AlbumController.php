@@ -11,14 +11,17 @@ use App\Models\Notification;
 
 class AlbumController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $userId = auth()->id();
+
+        $sortBy = $request->get('sort_by', 'titre');
 
         $albums = Album::where('user_id', $userId)
             ->orWhereHas('users', function ($q) use ($userId) {
                 $q->where('users.id', $userId);
             })
+            ->orderBy($sortBy, $sortBy === 'titre' ? 'asc' : 'desc')
             ->get();
 
         foreach ($albums as $album) {
@@ -33,9 +36,12 @@ class AlbumController extends Controller
             ->orderByDesc('id')
             ->get(['id', 'url', 'titre']);
 
+        $users = User::all();
+
         return view('album.grid', [
             'albums' => $albums,
-            'photos' => $photos
+            'photos' => $photos,
+            'users' => $users,
         ]);
     }
 
@@ -112,7 +118,7 @@ class AlbumController extends Controller
         ]);
     }
 
-    public function show($id)
+    public function show($id, Request $request)
     {
         $album = Album::findOrFail($id);
         $userId = auth()->id();
@@ -125,7 +131,16 @@ class AlbumController extends Controller
             ]);
         }
 
-        $photos = $album->photos()->orderByDesc('id')->get(['id', 'url', 'titre']);
+        $photosQuery = $album->photos()->orderByDesc('id');
+
+        if ($request->filled('tag')) {
+            $photosQuery->whereHas('tags', function ($q) use ($request) {
+                $q->where('tags.id', $request->tag);
+            });
+        }
+
+        $photos = $photosQuery->get(['id', 'url', 'titre']);
+
         $tags = Tag::all();
         $users = User::all();
 

@@ -3,7 +3,7 @@
     @include("components.utils.loading")
     @include("partials.header")
     <x-modals.addAlbumModal />
-
+    <x-modals.filterAlbumsModal />
     <section class="h-full m-auto">
         <div class="h-[90%] glass-morph overflow-hidden overflow-y-auto">
             <section id="section-albums">
