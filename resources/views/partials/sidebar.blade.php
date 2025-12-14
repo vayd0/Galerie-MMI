@@ -1,4 +1,5 @@
 @include("components.modals.searchBar")
+@include("components.modals.notificationsModal")
 @if ((!Request::is('/') && !Request::is('login') && !Request::is('register')))
     <nav
         class="glass-morph sidebar w-[5rem] h-full bg-white p-4 my-auto text-zinc-900 flex flex-col rounded-r-2xl shadow-xl">
@@ -32,6 +33,11 @@
 
         <div class="flex-1"></div>
         <ul class="flex flex-col justify-center items-center gap-3">
+            <li class="nav-item text-[1.4rem] hover:scale-105 hover:rotate-[-3deg] transition-all duration-300">
+                <button class="hover:cursor-pointer" onclick="openModal('notificationsModal')">
+                    <i class="fa-solid fa-bell"></i>
+                </button>
+            </li>
             @if ((Request::is('albums/*')))
                 <li class="nav-item text-[1.4rem] hover:scale-105 hover:rotate-[-3deg] transition-all duration-300">
                     <button class="hover:cursor-pointer" onclick="openModal('shareAlbumModal')">

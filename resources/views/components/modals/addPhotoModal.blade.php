@@ -5,6 +5,7 @@
 
         <div class="relative w-screen bg-white/95 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/20 p-8 w-96 max-w-md mx-4 transform transition-all duration-300 ease-out scale-95 opacity-0"
             data-modal-content>
+
             <div class="flex justify-between items-center mb-6">
                 <div>
                     <h2 class="text-2xl font-bold text-gray-800">Nouvelle photo</h2>
@@ -16,7 +17,7 @@
                 </button>
             </div>
 
-            <form action="{{ route('photos.add') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <form action="{{ route('photos.store') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                 @csrf
                 <input type="hidden" name="album_id" value="{{ $albumId }}">
                 <input type="hidden" id="noteValue" name="note" value="3">
@@ -45,6 +46,11 @@
                                 accept="image/png,image/jpeg,image/jpg,image/webp,image/gif" class="hidden">
                         </label>
                     </div>
+                    @if ($errors->has('photo_file'))
+                    <div class="text-red-600 text-sm mt-2">
+                        {{ $errors->first('photo_file') }}
+                    </div>
+                    @endif
                 </div>
 
                 <div>

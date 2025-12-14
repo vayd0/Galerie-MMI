@@ -15,6 +15,7 @@
 <body class="text-gray-800 relative min-h-screen overflow-y-scroll md:overflow-hidden">
 
     <div class="w-full h-full flex justify-center items-center p-2">
+        <x-utils.toast />
         <div class="relative z-10 flex justify-between m-auto h-[90vh] w-[95vw] gap-4">
             @include("partials.sidebar")
             @section('top')
@@ -31,8 +32,6 @@
     @vite('resources/js/modal.js')
     @vite('resources/js/search.js')
     @vite('resources/js/script.js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     @stack('scripts')
     @stack('tooltip.scripts')
 </body>

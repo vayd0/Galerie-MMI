@@ -5,7 +5,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 use App\Models\Album;
 use App\Models\Photo;
 use App\Models\Tag;
@@ -13,36 +12,15 @@ use App\Models\PossedeTag;
 use App\Models\User;
 class PhotosController extends Controller
 {
-    public function getPhotos($id)
-    {
-        $album = Album::findOrFail($id);
-        $userId = auth()->id();
 
-        $hasAccess = $album->user_id == $userId || $album->users()->where('users.id', $userId)->exists();
-        if (!$hasAccess) {
-            abort(403, 'Vous ne pouvez pas accéder à cet album.');
-        }
-
-        $photos = $album->photos()->orderByDesc('id')->get(['id', 'url', 'titre']);
-        $tags = Tag::all();
-        $users = User::all();
-
-        return view('photos.grid', [
-            'album' => $album,
-            'photos' => $photos,
-            'users' => $users,
-            'tags' => $tags
-        ]);
-    }
-
-    public function addPhotos(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             "titre" => "required|string|max:255",
             "note" => "required|integer|min:1|max:5",
             "album_id" => "required|exists:albums,id",
             "url" => "nullable|string|max:255",
-            "photo_file" => "nullable|image"
+            "photo_file" => "nullable|image|max:8096"
         ]);
 
         if ($request->hasFile('photo_file')) {

@@ -42,7 +42,7 @@
                                     title="Éditer">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
-                                <form action="{{ route('albums.delete', $album->id) }}" method="POST" class="inline">
+                                <form action="{{ route('albums.destroy', $album->id) }}" method="POST" class="inline">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit"

@@ -2,7 +2,7 @@
 @section('content')
   <div class="h-full w-full flex justify-around items-center">
     <div
-      class="p-8 glass-morph h-[60%] w-full max-w-md rounded-2xl shadow-2xl border border-white/20 bg-white/90 backdrop-blur-lg mx-4 flex flex-col justify-center">
+      class="p-8 glass-morph h-auto w-full max-w-md rounded-2xl shadow-2xl border border-white/20 bg-white/90 backdrop-blur-lg mx-4 flex flex-col justify-center">
       <div class="mb-6">
         <h1 class="text-2xl font-bold text-gray-800">Connexion</h1>
         <p class="text-sm text-gray-500 mt-1">Connectez-vous à votre compte</p>
@@ -185,21 +185,21 @@
     </div>
   </div>
   <script>
-    function setupInputSvgAnimation(inputId, svgId) {
+    function setupInputSvgAnimation(inputId, svgId, rotateClass) {
       const input = document.getElementById(inputId);
       const svg = document.getElementById(svgId);
       if (!input || !svg) return;
       input.addEventListener('focus', () => {
         svg.classList.remove('opacity-0', 'translate-y-4');
-        svg.classList.add('opacity-100', '-translate-y-8');
+        svg.classList.add('opacity-100', '-translate-y-8', rotateClass);
       });
       input.addEventListener('blur', () => {
         svg.classList.add('opacity-0', 'translate-y-4');
-        svg.classList.remove('opacity-100', '-translate-y-8');
+        svg.classList.remove('opacity-100', '-translate-y-8', rotateClass);
       });
     }
 
-    setupInputSvgAnimation('email', 'email-svg');
-    setupInputSvgAnimation('password', 'password-svg');
+    setupInputSvgAnimation('email', 'email-svg', 'rotate-[15deg]');
+    setupInputSvgAnimation('password', 'password-svg', '-rotate-[15deg]');
   </script>
 @endsection

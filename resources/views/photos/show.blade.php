@@ -50,7 +50,7 @@
             <div class="glass-morph p-4 h-full overflow-y-auto z-[-1]">
                 <div class="columns-1 sm:columns-3 gap-4 space-y-4">
                     @foreach($photos as $photo)
-                        <a class="mb-4 break-inside-avoid block" href="{{ route('photos.show', ['id' => $photo->id]) }}">
+                        <a class="mb-4 break-inside-avoid block" href="{{ route('photos.show', $photo->id) }}">
                             <div class="aspect-square w-full rounded-xl overflow-hidden mb-4">
                                 <img class="w-full h-full object-cover transition-all duration-300" src="{{ $photo->url }}"
                                     alt="" id="grid-img"

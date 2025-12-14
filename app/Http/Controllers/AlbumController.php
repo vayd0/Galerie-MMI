@@ -5,10 +5,13 @@ use Illuminate\Http\Request;
 use DB;
 use App\Models\Album;
 use App\Models\Photo;
+use App\Models\Tag;
+use App\Models\User;
+use App\Models\Notification;
 
 class AlbumController extends Controller
 {
-    public function getAlbum()
+    public function index()
     {
         $userId = auth()->id();
 
@@ -36,17 +39,23 @@ class AlbumController extends Controller
         ]);
     }
 
-    public function deleteAlbum($id)
+    public function destroy($id)
     {
         $album = Album::findOrFail($id);
         if ($album->user_id !== auth()->id()) {
-            abort(403, 'Vous ne pouvez pas supprimer cet album.');
+            return redirect("/albums")->with('toast', [
+                'type' => 'error',
+                'message' => 'Vous ne pouvez pas supprimer cet album, vous n\'en êtes pas le créateur.'
+            ]);
         }
         $album->delete();
-        return redirect("/albums")->with('success', 'Album supprimé avec succès !');
+        return redirect("/albums")->with('toast', [
+            'type' => 'success',
+            'message' => 'Album supprimé avec succès !'
+        ]);
     }
 
-    public function addAlbum(Request $request)
+    public function store(Request $request)
     {
         $validate = $request->validate([
             "titre" => "required|string|max:30"
@@ -58,11 +67,22 @@ class AlbumController extends Controller
         $album = new Album($validate);
         $album->save();
 
-        return redirect("/albums/$album->id")->with('success', 'Album créé avec succès !');
+        Notification::create([
+            'user_id' => auth()->id(),
+            'type' => 'success',
+            'title' => 'Nouvel album créé',
+            'message' => 'Vous avez créé l’album : ' . $album->titre,
+        ]);
+
+        return redirect("/albums/$album->id")->with('toast', [
+            'type' => 'success',
+            'message' => 'Album créé avec succès !'
+        ]);
     }
+
     public function share(Request $request)
     {
-        $request->validate([
+        $validated = $request->validate([
             'album_id' => 'required|exists:albums,id',
             'user_id' => 'required|exists:users,id',
         ]);
@@ -70,8 +90,50 @@ class AlbumController extends Controller
         $album = Album::findOrFail($request->album_id);
         $userId = $request->user_id;
 
+        if ($album->users()->where('users.id', $userId)->exists()) {
+            return back()->with('toast', [
+                'type' => 'error',
+                'message' => 'Cet utilisateur a déjà accès à cet album.'
+            ]);
+        }
+
         $album->users()->syncWithoutDetaching([$userId]);
 
-        return back()->with('success', 'Album partagé avec succès !');
+        Notification::create([
+            'user_id' => $userId,
+            'type' => 'success',
+            'title' => 'Nouvel album partagé',
+            'message' => 'Un album vient de vous être partagé : ' . $album->titre,
+        ]);
+
+        return back()->with('toast', [
+            'type' => 'success',
+            'message' => 'Album partagé avec succès !'
+        ]);
+    }
+
+    public function show($id)
+    {
+        $album = Album::findOrFail($id);
+        $userId = auth()->id();
+
+        $hasAccess = $album->user_id == $userId || $album->users()->where('users.id', $userId)->exists();
+        if (!$hasAccess) {
+            return redirect('/albums')->with('toast', [
+                'type' => 'error',
+                'message' => 'Vous ne pouvez pas accéder à cet album.'
+            ]);
+        }
+
+        $photos = $album->photos()->orderByDesc('id')->get(['id', 'url', 'titre']);
+        $tags = Tag::all();
+        $users = User::all();
+
+        return view('photos.grid', [
+            'album' => $album,
+            'photos' => $photos,
+            'users' => $users,
+            'tags' => $tags
+        ]);
     }
 }

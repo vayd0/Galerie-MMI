@@ -16,6 +16,9 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^7.1.0",
-        "masonry-layout": "^4.2.2"
+        "animejs": "^4.2.2",
+        "gsap": "^3.14.1",
+        "masonry-layout": "^4.2.2",
+        "split-type": "^0.3.4"
     }
 }

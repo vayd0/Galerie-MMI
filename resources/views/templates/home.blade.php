@@ -10,29 +10,30 @@
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://unpkg.com/tippy.js@6"></script>
     @vite('resources/css/app.css')
+    @vite('resources/css/home.css')
 </head>
 
-<body class="text-gray-800 relative min-h-screen overflow-y-scroll md:overflow-y-scroll">
+<body class="text-gray-800 relative min-h-screen overflow-hidden">
 
-    <div class="w-full h-full flex justify-center items-center p-2">
-        <div class="relative z-10 flex justify-between m-auto h-auto w-[95vw] gap-4">
+    <div class="w-full h-full flex justify-center items-center p-2 overflow-hidden">
+        <div class="relative z-10 flex justify-center m-auto h-auto w-[95vw] gap-4">
             @include("partials.sidebar")
+            @include("components.utils.loading")
             @section('top')
             @endsection
 
-                <div class="fixed inset-0 z-[-30] h-[auto] overflow-y-scroll">
-                    @include("components.utils.background")
-                </div>
-            <main class="fixed top-5 left-0 rounded-3xl w-full px-4">
+            <div class="fixed inset-0 z-[-30]">
+                @include("components.utils.background")
+            </div>
+            <main class="rounded-3xl w-full md:w-[60vw] mx-auto my-auto p-6 md:p-0">
                 @yield('content')
             </main>
         </div>
     </div>
     @vite('resources/js/modal.js')
     @vite('resources/js/search.js')
+    @vite('resources/js/animation.js')
     @vite('resources/js/script.js')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     @stack('scripts')
     @stack('tooltip.scripts')
 </body>

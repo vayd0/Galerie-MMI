@@ -859,7 +859,7 @@ void main(void) {
   })(window, 'requestAnimationFrame');
 </script>
 @else
-<svg class="z-0 opacity-[1] min-w-</div>screen overflow-y-scroll"  id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3172.88 7810.66">
+<svg class="z-0 opacity-[1] min-w-screen overflow-y-scroll overflow-x-hidden"  id="Calque_1" data-name="Calque 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3172.88 7810.66">
   <defs>
     <style>
       .cls-1 {

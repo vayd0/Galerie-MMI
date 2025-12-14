@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Tag;
 
 class TagsController extends Controller
 {
@@ -12,7 +13,7 @@ class TagsController extends Controller
             'nom' => 'required|string|max:50'
         ]);
         $nom = trim($request->input('nom'));
-        $tag = \App\Models\Tag::firstOrCreate(['nom' => $nom]);
+        $tag = Tag::firstOrCreate(['nom' => $nom]);
         return response()->json([
             'success' => true,
             'tag' => $tag->nom
