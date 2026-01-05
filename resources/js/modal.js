@@ -35,7 +35,7 @@ const getCsrfToken = () => window.csrfToken || document.querySelector('meta[name
 const showAlert = (message, type = 'error') => {
     alert(message);
 };
-L
+
 const initFileUrlHandler = () => {
     const fileInput = document.getElementById("fileInput");
     const urlInput = document.getElementById("url");
