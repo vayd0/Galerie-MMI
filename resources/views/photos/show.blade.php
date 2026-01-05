@@ -2,6 +2,7 @@
 
 @section('content')
     @include("components.modals.addPhotoModal", ['albumId' => $photo->album_id ?? null])
+    @include("components.modals.editPhotoModal", ['photo' => $photo, 'tags' => $tags ?? []])
     <div class="w-full h-full mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
             <div class="glass-morph p-4 h-full">
@@ -12,13 +13,21 @@
                 </a>
                 <h1 class="text-xl font-bold mb-2 flex items-center justify-between">
                     {{ $photo->titre }}
-                    <form action="{{ route('photos.destroy', $photo->id) }}" method="POST" onsubmit="return confirm('Supprimer cette photo ?')" class="ml-2">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" title="Supprimer" class="text-red-500 hover:text-red-700 transition hover:cursor-pointer">
-                            <i class="fa-solid fa-trash"></i>
+                    <div class="flex items-center gap-2">
+                        <button type="button"
+                            class="text-blue hover:text-darkblue transition hover:cursor-pointer"
+                            title="Éditer"
+                            onclick="openEditPhotoModal({{ $photo->id }}, '{{ addslashes($photo->titre) }}', '{{ $photo->url }}', {{ $photo->note }}, {{ $photo->tags ? json_encode($photo->tags->pluck('nom')) : '[]' }})">
+                            <i class="fa-solid fa-pen"></i>
                         </button>
-                    </form>
+                        <form action="{{ route('photos.destroy', $photo->id) }}" method="POST" onsubmit="return confirm('Supprimer cette photo ?')" class="ml-2">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" title="Supprimer" class="text-red-500 hover:text-red-700 transition hover:cursor-pointer">
+                                <i class="fa-solid fa-trash"></i>
+                            </button>
+                        </form>
+                    </div>
                 </h1>
                 <div class="relative rounded-xl overflow-hidden mb-6">
                     <img id="main-photo" src="{{ $photo->url }}" alt="{{ $photo->titre }}"
@@ -72,3 +81,38 @@
         </div>
     </div>
 @endsection
+
+@push('scripts')
+<script>
+    function openEditPhotoModal(photoId, photoTitre, photoUrl, photoNote, photoTags) {
+        document.getElementById('editPhotoId').value = photoId;
+        document.getElementById('editTitre').value = photoTitre;
+        document.getElementById('editUrl').value = photoUrl;
+        document.getElementById('editNoteValue').value = photoNote;
+        
+        const form = document.getElementById('editPhotoForm');
+        form.action = `/photos/${photoId}`;
+        
+        let methodInput = form.querySelector('input[name="_method"]');
+        if (!methodInput) {
+            methodInput = document.createElement('input');
+            methodInput.type = 'hidden';
+            methodInput.name = '_method';
+            methodInput.value = 'PUT';
+            form.appendChild(methodInput);
+        } else {
+            methodInput.value = 'PUT';
+        }
+        
+        if (window.initializeEditPhotoTags && typeof window.initializeEditPhotoTags === 'function') {
+            window.initializeEditPhotoTags(photoTags);
+        }
+        
+        if (window.updateEditPhotoRating && typeof window.updateEditPhotoRating === 'function') {
+            window.updateEditPhotoRating(photoNote);
+        }
+        
+        openModal('editPhotoModal');
+    }
+</script>
+@endpush

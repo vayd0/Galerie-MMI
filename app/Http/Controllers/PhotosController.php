@@ -63,6 +63,59 @@ class PhotosController extends Controller
         return redirect("/albums/$albumId")->with('success', 'Photo supprimée avec succès !');
     }
 
+    public function update(Request $request, $id)
+    {
+        $photo = Photo::findOrFail($id);
+        $album = Album::findOrFail($photo->album_id);
+        
+        $userId = auth()->id();
+        $hasAccess = $album->user_id == $userId || $album->users()->where('users.id', $userId)->exists();
+        if (!$hasAccess) {
+            return back()->with('toast', [
+                'type' => 'error',
+                'message' => 'Vous ne pouvez pas modifier cette photo.'
+            ]);
+        }
+
+        $validated = $request->validate([
+            'titre' => 'required|string|max:255',
+            'note' => 'required|integer|min:1|max:5',
+            'photo_file' => 'nullable|image|max:8096',
+            'tags' => 'nullable|string'
+        ]);
+
+        $photo->titre = $validated['titre'];
+        $photo->note = $validated['note'];
+
+        if ($request->hasFile('photo_file')) {
+            $path = $request->file('photo_file')->store('photos', 'public');
+            $photo->url = '/storage/' . $path;
+        }
+
+        $photo->save();
+
+        PossedeTag::where('photo_id', $photo->id)->delete();
+        
+        if (!empty($validated['tags'])) {
+            $tagNames = array_filter(array_map('trim', explode(',', $validated['tags'])));
+            
+            foreach ($tagNames as $tagName) {
+                if (!empty($tagName)) {
+                    $tag = Tag::firstOrCreate(['nom' => $tagName]);
+                    PossedeTag::firstOrCreate([
+                        'photo_id' => $photo->id,
+                        'tag_id' => $tag->id
+                    ]);
+                }
+            }
+        }
+
+        return back()->with('toast', [
+            'type' => 'success',
+            'message' => 'Photo modifiée avec succès !'
+        ]);
+    }
+
     public function show($id)
     {
         $photo = Photo::with('tags')->findOrFail($id);

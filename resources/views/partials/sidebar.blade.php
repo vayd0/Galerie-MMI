@@ -45,10 +45,6 @@
                     </button>
                 </li>
             @endif
-            <li class="nav-item text-[1.4rem] hover:scale-105 hover:rotate-[-3deg] transition-all duration-300">
-                <button class="hover:cursor-pointer">
-                    <i class="fa-solid fa-gear"></i></button>
-            </li>
         </ul>
     </nav>
 @endif

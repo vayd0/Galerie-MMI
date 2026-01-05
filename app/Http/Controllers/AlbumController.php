@@ -37,11 +37,13 @@ class AlbumController extends Controller
             ->get(['id', 'url', 'titre']);
 
         $users = User::all();
+        $tags = Tag::all();
 
         return view('album.grid', [
             'albums' => $albums,
             'photos' => $photos,
             'users' => $users,
+            'tags' => $tags,
         ]);
     }
 
@@ -77,7 +79,7 @@ class AlbumController extends Controller
             'user_id' => auth()->id(),
             'type' => 'success',
             'title' => 'Nouvel album créé',
-            'message' => 'Vous avez créé l’album : ' . $album->titre,
+            'message' => 'Vous avez créé l\'album : ' . $album->titre,
         ]);
 
         return redirect("/albums/$album->id")->with('toast', [
@@ -114,7 +116,38 @@ class AlbumController extends Controller
 
         return back()->with('toast', [
             'type' => 'success',
-            'message' => 'Album partagé avec succès !'
+            'message' => 'Album partagé avec succès !'
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $album = Album::findOrFail($id);
+        
+        if ($album->user_id !== auth()->id()) {
+            return back()->with('toast', [
+                'type' => 'error',
+                'message' => 'Vous ne pouvez pas modifier cet album.'
+            ]);
+        }
+
+        $validated = $request->validate([
+            'titre' => 'required|string|max:255'
+        ]);
+
+        $album->titre = $validated['titre'];
+        $album->save();
+
+        Notification::create([
+            'user_id' => auth()->id(),
+            'type' => 'success',
+            'title' => 'Album modifié',
+            'message' => 'Vous avez modifié l\'album : ' . $album->titre,
+        ]);
+
+        return back()->with('toast', [
+            'type' => 'success',
+            'message' => 'Album modifié avec succès !'
         ]);
     }
 

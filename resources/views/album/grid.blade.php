@@ -4,6 +4,7 @@
     @include("partials.header")
     <x-modals.addAlbumModal />
     <x-modals.filterAlbumsModal />
+    <x-modals.editAlbumModal/>
     <section class="h-full m-auto">
         <div class="h-[90%] glass-morph overflow-hidden overflow-y-auto">
             <section id="section-albums">
@@ -39,7 +40,8 @@
                                 class="absolute left-1/2 bottom-1 -translate-x-1/2 w-[60%] md:w-[80%] h-8 bg-darkblue rounded-b-lg z-[-10] transition-transform duration-300 translate-y-0 group-hover:translate-y-8 p-1 flex items-center justify-center space-x-4">
                                 <button type="button"
                                     class="text-basic hover:text-lime hover:cursor-pointer hover:scale-110 transition-transform duration-200"
-                                    title="Éditer">
+                                    title="Éditer"
+                                    onclick="openEditAlbumModal({{ $album->id }}, '{{ addslashes($album->titre) }}')">
                                     <i class="fa-solid fa-pen"></i>
                                 </button>
                                 <form action="{{ route('albums.destroy', $album->id) }}" method="POST" class="inline">
@@ -66,6 +68,16 @@
 
 @push('scripts')
     <script>
+        function openEditAlbumModal(albumId, albumTitre) {
+            document.getElementById('editAlbumId').value = albumId;
+            document.getElementById('editAlbumTitreAlbum').value = albumTitre;
+            
+            const form = document.getElementById('editAlbumForm');
+            form.action = `/albums/${albumId}`;
+            
+            openModal('editAlbumModal');
+        }
+
         document.addEventListener('DOMContentLoaded', function () {
             const navAlbums = document.getElementById('nav-albums');
             const navPhotos = document.getElementById('nav-photos');

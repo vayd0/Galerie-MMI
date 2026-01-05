@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, "index"]);
 
 Route::middleware('auth')->group(function () {
-    Route::resource('albums', AlbumController::class)->except(['edit', 'update', 'create']);
-    Route::resource('photos', PhotosController::class)->except(['edit', 'update']);
+    Route::resource('albums', AlbumController::class)->except(['edit', 'create']);
+    Route::resource('photos', PhotosController::class)->except(['edit']);
 
     Route::post('/albums/share', [AlbumController::class, 'share'])->name('albums.share');
 });
