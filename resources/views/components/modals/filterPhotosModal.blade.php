@@ -29,7 +29,24 @@
                     itemKey="id"
                 />
             </div>
+            <div>
+                <label for="note_filter" class="block text-sm font-semibold text-gray-700 mb-3">
+                    <i class="fa-solid fa-star mr-2 text-yellow-500"></i>
+                    Note minimale
+                </label>
+                <select id="note_filter" name="note" class="w-full px-4 py-3 border border-gray-200 rounded-xl bg-gray-50/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-darkblue/50 focus:border-darkblue focus:bg-white transition-all duration-200">
+                    <option value="">Toutes les notes</option>
+                    <option value="5" {{ request('note') == '5' ? 'selected' : '' }}>5 étoiles et plus</option>
+                    <option value="4" {{ request('note') == '4' ? 'selected' : '' }}>4 étoiles et plus</option>
+                    <option value="3" {{ request('note') == '3' ? 'selected' : '' }}>3 étoiles et plus</option>
+                    <option value="2" {{ request('note') == '2' ? 'selected' : '' }}>2 étoiles et plus</option>
+                    <option value="1" {{ request('note') == '1' ? 'selected' : '' }}>1 étoile et plus</option>
+                </select>
+            </div>
             <div class="flex justify-end gap-3 pt-4">
+                <a href="{{ url()->current() }}" class="px-6 py-3 text-gray-600 bg-gray-100/80 rounded-xl hover:bg-gray-200/80 transition-all duration-200 font-medium">
+                    Réinitialiser
+                </a>
                 <button type="button" onclick="closeModal('filterPhotosModal')" class="px-6 py-3 text-gray-600 bg-gray-100/80 rounded-xl hover:bg-gray-200/80 transition-all duration-200 font-medium">
                     Annuler
                 </button>

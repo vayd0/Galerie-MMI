@@ -172,7 +172,11 @@ class AlbumController extends Controller
             });
         }
 
-        $photos = $photosQuery->get(['id', 'url', 'titre']);
+        if ($request->filled('note')) {
+            $photosQuery->where('note', '>=', $request->note);
+        }
+
+        $photos = $photosQuery->get(['id', 'url', 'titre', 'note']);
 
         $tags = Tag::all();
         $users = User::all();
