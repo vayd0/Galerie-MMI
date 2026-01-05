@@ -1,3 +1,3 @@
 import "./bootstrap"
 import "./modal"
-import "./editAlbumModal"
+import "./editAlbumModal2"
