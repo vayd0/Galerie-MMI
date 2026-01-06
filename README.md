@@ -51,6 +51,9 @@ php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
 php artisan migrate
 php artisan storage:link
 
+# Compiler les assets
+npm run build
+
 # Lancer l'application
 npm run dev
 php artisan serve

@@ -20,7 +20,7 @@ class PhotosController extends Controller
             "note" => "required|integer|min:1|max:5",
             "album_id" => "required|exists:albums,id",
             "url" => "nullable|string|max:255",
-            "photo_file" => "nullable|image|max:8096"
+            "photo_file" => "nullable|image|max:51200" // 50MB en KB
         ]);
 
         if ($request->hasFile('photo_file')) {
@@ -80,7 +80,7 @@ class PhotosController extends Controller
         $validated = $request->validate([
             'titre' => 'required|string|max:255',
             'note' => 'required|integer|min:1|max:5',
-            'photo_file' => 'nullable|image|max:8096',
+            'photo_file' => 'nullable|image|max:51200', // 50MB en KB
             'tags' => 'nullable|string'
         ]);
 
