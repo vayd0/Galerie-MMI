@@ -44,9 +44,6 @@ npm install
 cp .env.example .env
 php artisan key:generate
 
-# Publier les vues Fortify
-php artisan vendor:publish --provider="Laravel\Fortify\FortifyServiceProvider"
-
 # Base de données (configurer .env puis)
 php artisan migrate
 php artisan storage:link
