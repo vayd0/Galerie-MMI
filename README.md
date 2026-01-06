@@ -34,7 +34,7 @@
 ```bash
 # Cloner le projet
 git clone https://github.com/vayd0/Galerie-MMI.git
-cd GaleriePhoto
+cd Galerie-MMI
 
 # Installer les dépendances
 composer install
